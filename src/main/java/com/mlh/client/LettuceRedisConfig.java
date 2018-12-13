@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @description:
  */
 //@Configuration
-public class RedisConfig {
+public class LettuceRedisConfig {
     @Value("${spring.redis.host}")
     private String host;
     @Value("${spring.redis.port}")
