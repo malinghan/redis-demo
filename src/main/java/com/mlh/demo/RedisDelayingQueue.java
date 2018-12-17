@@ -59,6 +59,7 @@ public class RedisDelayingQueue<T> {
             if (jedis.zrem(queueKey, s) > 0) { // 抢到了
                 TaskItem<T> task = JSON.parseObject(s, TaskType); // fastjson 反序列化
                 this.handleMsg(task.msg);
+
             }
         }
     }
