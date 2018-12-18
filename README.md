@@ -13,12 +13,9 @@ test redis
 - LettuceConnectionFactory
 - JedisConnectionFactory
 
-
-- ReplayingDecoder
-  -  它能实现在IO阻塞的情况下实现无阻塞的解码
-  -  io.netty.handler.codec
-- FrameDecoder
-
+#### Redis GeoHash
+#### Redis Scan
+    https://mp.weixin.qq.com/s/ufoLJiXE0wU4Bc7ZbE9cDQ
 #### REDIS 持久化 `性能和数据安全`
 - redis是单线程IO,AOF同步会影响redis服务器性能.
 - redis通过fork函数，对进程的同步redis指令，产生一个子进程，内存像连体婴儿一样共享，持久化完成后分离。
@@ -181,6 +178,7 @@ min-slaves-max-lag 10 # 表示如果 10s 没有收到从节点的反馈，就意
 - 槽位迁移感知
 - 集群变更感知
 
+
 #### Redis Stream (了解了解）
 - Stream，它是一个新的强大的支持多播的可持久化的消息队列
 - Comsumer Group  last_delivered_id
@@ -228,7 +226,7 @@ info memory
 - 这两个值可以在INFO status 命令的keyspace_hits属性和keyspace_misses属性中查看。
 
 
-### 分布式锁
+#### Redis 分布式锁
 - Sentinel集群模式实现分布式锁的问题？
   - 比如在 Sentinel 集群中，主节点挂掉时，从节点会取而代之，客户端上却并没有明显感知。
   - 原先第一个客户端在主节点中申请成功了一把锁，但是这把锁还没有来得及同步到从节点，主节点突然挂掉了。
@@ -242,7 +240,98 @@ info memory
 
 
 
+#### 过期策略
+- 字典存储 定时遍历 惰性删除
+- 从库的过期策略(主从延迟)
+   - 从库不会进行过期扫描，从库对过期的处理是被动的。主库在 key 到期时，会在 AOF 文件里增加一条 del 指令，同步到所有的从库，从库通过执行这条 del 指令来删除过期的 key。
+   - 因为指令同步是异步进行的，所以主库过期的 key 的 del 指令没有及时同步到从库的话，会出现主从数据的不一致，主库没有的数据在从库里还存在，比如上一节的集群环境分布式锁的算法漏洞就是因为这个同步延迟产生的。
 
+#### LRU
+
+- 当 Redis 内存超出物理内存限制时，内存的数据会开始和磁盘产生频繁的交换 (swap)。
+
+- 交换会让 Redis 的性能急剧下降，对于访问量比较频繁的 Redis 来说，这样龟速的存取效率基本上等于不可用。
+
+- 在生产环境中我们是不允许 Redis 出现交换行为的，为了限制最大使用内存，Redis 提供了配置参数 maxmemory 来限制内存超出期望大小。
+- 当实际内存超出 maxmemory 时，Redis 提供了几种可选策略 (maxmemory-policy) 来让用户自己决定该如何腾出新的空间以继续提供读写服务。
+  - noeviction 只读不谢
+  - volatile-lru 设置了过期时间的key，LRU过期淘汰
+  - volatile-ttl key的剩余寿命ttl过期淘汰
+  - volatile-random 随机淘汰
+  - allkeys-lru  全体key LRU淘汰
+  - allkeys-random 全体key 随机淘汰
+- 如果你只是拿 Redis 做缓存，那应该使用 allkeys-xxx，客户端写缓存时不必携带过期时间。如果你还想同时使用 Redis 的持久化功能，那就使用 volatile-xxx 策略，这样可以保留没有设置过期时间的 key，它们是永久的 key 不会被 LRU 算法淘汰。
+- Redis作为LRU Cache的实现： https://yq.aliyun.com/articles/63034
+- redis lru实现策略： https://blog.csdn.net/mysqldba23/article/details/68482894
+
+##### LRU 算法实现
+- 实现 LRU 算法除了需要 key/value 字典外，还需要附加一个链表，链表中的元素按照一定的顺序进行排列。当空间满的时候，会踢掉链表尾部的元素。当字典的某个元素被访问时，它在链表中的位置会被移动到表头。所以链表的元素排列顺序就是元素最近被访问的时间顺序。
+- 位于链表尾部的元素就是不被重用的元素，所以会被踢掉。位于表头的元素就是最近刚刚被人用过的元素，所以暂时不会被踢。
+##### 近似 LRU 算法
+Redis 使用的是一种近似 LRU 算法，它跟 LRU 算法还不太一样。
+之所以不使用 LRU 算法，是因为需要消耗大量的额外的内存，需要对现有的数据结构进行较大的改造。
+近似 LRU 算法则很简单，在现有数据结构的基础上使用随机采样法来淘汰元素，能达到和 LRU 算法非常近似的效果。
+Redis 为实现近似 LRU 算法，它给每个 key 增加了一个额外的小字段，这个字段的长度是 24 个 bit，也就是最后一次被访问的时间戳。
+
+####  懒惰删除(unlink)
+删除指令 del 会直接释放对象的内存，大部分情况下，这个指令非常快，没有明显延迟。
+不过如果删除的 key 是一个非常大的对象，比如一个包含了千万元素的 hash，那么删除操作就会导致单线程卡顿。
+- unlink
+   - Redis 为了解决这个卡顿问题，在 4.0 版本引入了 unlink 指令，它能对删除操作进行懒处理，丢给后台线程来异步回收内存。
+- flushdb/flushall
+   - Redis 提供了 flushdb 和 flushall 指令，用来清空数据库，这也是极其缓慢的操作。Redis 4.0 同样给这两个指令也带来了异步化，在指令后面增加 async 参数就可以将整棵大树连根拔起，扔给后台线程慢慢焚烧。
+- AOF Sync也很慢
+   - Redis需要每秒一次(可配置)同步AOF日志到磁盘，
+   - 确保消息尽量不丢失，需要调用sync函数，这个操作会比较耗时，会导致主线程的效率下降，所以Redis也将这个操作移到异步线程来完成。
+- 更多异步删除点
+   - Redis 回收内存除了 del 指令和 flush 之外，还会存在于在 key 的过期、LRU 淘汰、rename 指令以及从库全量同步时接受完 rdb 文件后会立即进行的 flush 操作。
+   - Redis4.0 为这些删除点也带来了异步删除机制，打开这些点需要额外的配置选项。
+   - slave-lazy-flush 从库接受完 rdb 文件后的 flush 操作
+   - lazyfree-lazy-eviction 内存达到 maxmemory 时进行淘汰
+   - lazyfree-lazy-expire key 过期删除
+   - lazyfree-lazy-server-del rename 指令删除 destKey
+   - redis4.0之lazyfree: https://yq.aliyun.com/articles/205504
+
+#### 优雅地使用 Jedis
+- 本节面向 Java 用户，主题是如何优雅地使用 Jedis 编写应用程序，既可以让代码看起来赏心悦目，又可以避免使用者犯错。
+- JedisPool，Jedis 对象不是线程安全的
+
+
+#### redis 安全问题
+##### 指令安全
+
+Redis 有一些非常危险的指令，这些指令会对 Redis 的稳定以及数据安全造成非常严重的影响。
+比如 keys 指令会导致 Redis 卡顿，flushdb 和 flushall 会让 Redis 的所有数据全部清空。
+如何避免人为操作失误导致这些灾难性的后果也是运维人员特别需要注意的风险点之一。
+
+Redis 在配置文件中提供了 rename-command 指令用于将某些危险的指令修改成特别的名称，用来避免人为误操作。
+
+比如在配置文件的 security 块增加下面的内容:
+
+rename-command keys abckeysabc
+
+如果还想执行 keys 方法，那就不能直接敲 keys 命令了，而需要键入abckeysabc。 如果想完全封杀某条指令，可以将指令 rename 成空串，就无法通过任何字符串指令来执行这条指令了。
+
+rename-command flushall ""
+##### 端口安全
+- Redis 的服务地址一旦可以被外网直接访问，内部的数据就彻底丧失了安全性,在 Redis 的配置文件中指定监听的 IP 地址，避免这样的惨剧发生
+`bind 10.100.20.13`
+requirepass yoursecurepasswordhereplease
+- 密码控制也会影响到从库复制，masterauth指令配置相应的密码才可以进行复制操作。
+`masterauth yoursecurepasswordhereplease`
+##### Lua 脚本安全
+开发者必须禁止 Lua 脚本由用户输入的内容 (UGC) 生成
+##### SSL 代理
+#### lua 脚本支持
+SCRIPT LOAD 和 EVALSHA 指令
+
+#### 参考资料
+
+- 1. 国内 90 后技术大神黄健宏的著作《Redis 设计与实现》
+- 2. Redis 官网 & Redis 作者 Antirez 的 Blog
+- Redis 官网: https://redis.io/
+- Antirez 博客: http://antirez.com/latest/0
+- Redis 扩展模块: https://redis.io/modules
 
 
 

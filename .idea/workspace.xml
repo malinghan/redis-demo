@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6df403b-ed43-4a58-ae60-c4bdd0de517f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/redis源码分析.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mlh/demo/JedisTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mlh/jedis/RedisPool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mlh/client/JRedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mlh/config/JRedisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mlh/client/LettuceRedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mlh/config/LettuceRedisConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mlh/client/RedisSentinelConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mlh/config/RedisSentinelConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mlh/client/WriteToMasterReadFromSlaveConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mlh/config/WriteToMasterReadFromSlaveConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/mlh/test/RedisTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/mlh/test/RedisTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,37 +46,37 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="28" />
-          <entry key="java" value="87" />
-          <entry key="md" value="10" />
+          <entry key="class" value="37" />
+          <entry key="java" value="90" />
+          <entry key="md" value="13" />
           <entry key="properties" value="2" />
           <entry key="propertities" value="1" />
-          <entry key="xml" value="11" />
+          <entry key="xml" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="28" />
-          <entry key="JAVA" value="87" />
-          <entry key="Markdown" value="10" />
+          <entry key="CLASS" value="37" />
+          <entry key="JAVA" value="90" />
+          <entry key="Markdown" value="13" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Properties" value="2" />
-          <entry key="XML" value="11" />
+          <entry key="XML" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
-          <entry key="java" value="3186" />
-          <entry key="md" value="2272" />
+          <entry key="java" value="3334" />
+          <entry key="md" value="2849" />
           <entry key="properties" value="55" />
           <entry key="xml" value="150" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3186" />
-          <entry key="Markdown" value="2272" />
+          <entry key="JAVA" value="3334" />
+          <entry key="Markdown" value="2849" />
           <entry key="PLAIN_TEXT" value="7" />
           <entry key="Properties" value="55" />
           <entry key="XML" value="150" />
@@ -91,12 +89,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/demo/JedisTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/jedis/RedisPool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4">
+              <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#301#302#0" expanded="true" />
+                <element signature="e#344#345#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="60">
-                <caret line="4" column="88" selection-start-line="4" selection-start-column="88" selection-end-line="4" selection-end-column="88" />
+              <first_editor relative-caret-position="256">
+                <caret line="331" column="29" selection-start-line="331" selection-start-column="29" selection-end-line="331" selection-end-column="29" />
               </first_editor>
               <second_editor>
                 <js_state />
@@ -106,10 +130,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/mlh/test/RedisTest.java">
+        <entry file="file://$PROJECT_DIR$/redis源码分析.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="165">
+                <caret line="11" selection-start-line="11" selection-end-line="11" />
+              </first_editor>
+              <second_editor>
+                <js_state />
+              </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+            <state relative-caret-position="16">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
             </state>
           </provider>
         </entry>
@@ -195,6 +233,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/mlh/demo/TransactionDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/mlh/config/JRedisConfig.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/mlh/test/RedisTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mlh/demo/JedisTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/mlh/jedis/RedisPool.java" />
+        <option value="$PROJECT_DIR$/redis源码分析.md" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -211,6 +252,12 @@
         <option name="mavenHome" value="$USER_HOME$/Programs/apache-maven-3.5.2" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
@@ -473,64 +520,6 @@
               <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="mlh" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="mlh" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -568,9 +557,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RedisTest.testFor">
+  <component name="RunManager" selected="Application.JedisTest">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JedisTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.mlh.demo.JedisTest" />
+      <module name="redis-demo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mlh.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -619,23 +622,6 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RedisTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="redis-demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mlh.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.mlh.test" />
-      <option name="MAIN_CLASS_NAME" value="com.mlh.test.RedisTest" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -689,19 +675,19 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.Application" />
-      <item itemvalue="JUnit.RedisTest.test" />
       <item itemvalue="Application.RedisWithReentrantLock" />
       <item itemvalue="Application.RedisDelayingQueue" />
       <item itemvalue="Application.PfTest" />
       <item itemvalue="JUnit.RedisTest.testFor" />
+      <item itemvalue="Application.JedisTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.JedisTest" />
         <item itemvalue="JUnit.RedisTest.testFor" />
         <item itemvalue="Application.PfTest" />
         <item itemvalue="Application.RedisDelayingQueue" />
         <item itemvalue="Application.RedisWithReentrantLock" />
-        <item itemvalue="JUnit.RedisTest.test" />
       </list>
     </recent_temporary>
   </component>
@@ -722,7 +708,7 @@
       <workItem from="1544587158128" duration="26912000" />
       <workItem from="1544765255685" duration="1864000" />
       <workItem from="1544860069130" duration="2178000" />
-      <workItem from="1545013111491" duration="21001000" />
+      <workItem from="1545013111491" duration="26959000" />
     </task>
     <servers />
   </component>
@@ -759,7 +745,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58234000" />
+    <option name="totallyTimeSpent" value="64192000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="700" extended-state="0" />
@@ -771,19 +757,19 @@
       <window_info id="UI Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Favorites" order="5" sideWeight="0.50317127" side_tool="true" weight="0.26655897" />
-      <window_info content_ui="combo" id="Project" order="6" sideWeight="0.49682876" visible="true" weight="0.2786753" />
+      <window_info active="true" content_ui="combo" id="Project" order="6" sideWeight="0.49682876" visible="true" weight="0.19789983" />
       <window_info id="Structure" order="7" weight="0.24959612" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32876712" />
       <window_info anchor="bottom" id="Java Enterprise" order="1" />
       <window_info anchor="bottom" id="Spring" order="2" />
       <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="4" sideWeight="0.49919224" visible="true" weight="0.20559211" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49919224" visible="true" weight="0.27631578" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50080776" side_tool="true" weight="0.21297836" />
       <window_info anchor="bottom" id="Database Changes" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" weight="0.32876712" />
       <window_info anchor="bottom" id="Run" order="9" weight="0.46052632" />
-      <window_info anchor="bottom" id="Debug" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="10" weight="0.32730263" />
       <window_info anchor="bottom" id="Cvs" order="11" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="12" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="13" />
@@ -793,7 +779,7 @@
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Database" order="5" weight="0.32956383" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="6" weight="0.32956383" />
       <window_info anchor="right" id="Commander" order="7" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="8" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
@@ -840,64 +826,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.2.RELEASE/spring-data-redis-2.1.2.RELEASE.jar!/org/springframework/data/redis/core/ListOperations.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.2.RELEASE/spring-data-redis-2.1.2.RELEASE.jar!/org/springframework/data/redis/core/StringRedisTemplate.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/net/URL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="437" column="11" selection-start-line="437" selection-start-column="11" selection-end-line="437" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/idea.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="33" selection-start-column="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/applicationContext-redis.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/applicationgContext.xml" />
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.2.RELEASE/spring-data-redis-2.1.2.RELEASE.jar!/org/springframework/data/redis/serializer/StringRedisSerializer.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.0.RELEASE/spring-boot-autoconfigure-2.1.0.RELEASE.jar!/org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="253" column="16" selection-start-line="253" selection-start-column="16" selection-end-line="253" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.2.RELEASE/spring-data-redis-2.1.2.RELEASE.jar!/org/springframework/data/redis/core/RedisTemplate.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="66" column="29" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-redis/2.1.2.RELEASE/spring-data-redis-2.1.2.RELEASE.jar!/org/springframework/data/redis/connection/RedisPassword.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-682">
@@ -907,13 +835,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/redisdemo/RedisCommonDAO.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/util/JsonUtil.java" />
-    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/Jedis.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="111" column="18" selection-start-line="111" selection-start-column="18" selection-end-line="111" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -932,13 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/Client.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -1235,13 +1149,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/demo/TransactionDemo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="83">
@@ -1256,16 +1163,128 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/mlh/test/RedisTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
+        <state relative-caret-position="365">
           <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/BinaryJedis.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="768" selection-start-line="768" selection-end-line="768" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/BinaryClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+          <folding>
+            <element signature="e#1405#1406#0" expanded="true" />
+            <element signature="e#1442#1443#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/Protocol.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+          <folding>
+            <element signature="e#8631#8632#0" expanded="true" />
+            <element signature="e#8695#8696#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/Connection.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="129" selection-start-line="129" selection-end-line="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/util/SafeEncoder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/util/RedisOutputStream.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/Client.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/Jedis.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/redis/clients/jedis/2.9.0/jedis-2.9.0.jar!/redis/clients/jedis/JedisCommands.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/demo/JedisTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/mlh/jedis/RedisPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#301#302#0" expanded="true" />
+            <element signature="e#344#345#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/redis源码分析.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="165">
+            <caret line="11" selection-start-line="11" selection-end-line="11" />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="60">
-            <caret line="4" column="88" selection-start-line="4" selection-start-column="88" selection-end-line="4" selection-end-column="88" />
+          <first_editor relative-caret-position="256">
+            <caret line="331" column="29" selection-start-line="331" selection-start-column="29" selection-end-line="331" selection-end-column="29" />
           </first_editor>
           <second_editor>
             <js_state />
