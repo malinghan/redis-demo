@@ -10,6 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: linghan.ma
@@ -31,5 +33,16 @@ public class RedisTest {
         User user = (User) redisTemplate.opsForValue().get(key);
         logger.info("uesr: "+user.toString());
     }
+
+    @Test
+    public void testFor() {
+        List<String> list = new ArrayList<>();
+
+        for(String s:list){
+            System.out.println(s);
+        }
+    }
+
+
 
 }

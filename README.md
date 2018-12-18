@@ -2,6 +2,7 @@
 test redis
 
 - wiki: https://docs.spring.io/spring-data/redis/docs/2.1.0.M1/reference/html/#redis
+- 掘金小册: https://juejin.im/book/5afc2e5f6fb9a07a9b362527/section/5b4c19216fb9a04fb8773ed1
 
 - spring boot 整合redis: https://juejin.im/post/5ba0a098f265da0adb30c684
 
@@ -30,6 +31,8 @@ test redis
 - 但是fsync是磁盘IO操作，很影响性能。所以通常只有redis从节点才进行持久化操作，这样不会影响主节点性能。
 - 为了防止从节点也挂了，最好是在生产环境做好监控，另外增加一个从节点保证至少有一个从节点。
 - redis重启时， 一般是通常通过AOP增量同步加上 rdb备份内容 实现混合持久化。加强性能。
+- RDB持久化是指在指定的时间间隔内将内存中的数据集快照写入磁盘，实际操作过程是fork一个子进程，先将数据集写入临时文件，写入成功后，再替换之前的文件，用二进制压缩存储。
+- AOF持久化以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录，以文本的方式记录，可以打开文件看到详细的操作记录。
 
 #### REDIS 管道 `客户端批量IO技术`
 - redis管道技术其实是个客户端技术。
@@ -124,7 +127,7 @@ min-slaves-max-lag 10 # 表示如果 10s 没有收到从节点的反馈，就意
     - 如果没有修改性指令，虽然连接不会得到切换，但是数据不会被破坏，所以即使不切换也没关系。
   - sentinel一般用于读写分离，从库也会服务，cluster的从库一般只是备用库
 
-   - [ ]  尝试自己搭建一套 redis-sentinel 集群；
+   - [ ] 尝试自己搭建一套 redis-sentinel 集群；
    - [ ] 使用Java 的客户端对集群进行一些常规操作；
    - [ ] 试试主从切换，主动切换和被动切换都试一试，看看客户端能否正常切换连接；
 
@@ -178,10 +181,64 @@ min-slaves-max-lag 10 # 表示如果 10s 没有收到从节点的反馈，就意
 - 槽位迁移感知
 - 集群变更感知
 
+#### Redis Stream (了解了解）
+- Stream，它是一个新的强大的支持多播的可持久化的消息队列
+- Comsumer Group  last_delivered_id
+####  Info 指令
+
+- Server 服务器运行的环境参数
+- Clients 客户端相关信息
+- Memory 服务器运行内存统计数据
+- Persistence 持久化信息
+- Stats 通用统计数据
+- Replication 主从复制相关信息
+- CPU CPU 使用情况
+- Cluster 集群信息
+- KeySpace 键值对统计数量信息
+
+##### Redis 每秒执行多少次指令？
+qjyd@bogon ~$ redis-cli info stats | grep ops
+instantaneous_ops_per_sec:0
+##### Redis 连接了多少客户端？
+redis-cli info clients
+##### Redis 内存占用多大 ?
+info memory
+- used_memory_human:827.46K # 内存分配器 (jemalloc) 从操作系统分配的内存总量
+- used_memory_rss_human:3.61M  # 操作系统看到的内存占用 ,top 命令看到的内存
+- used_memory_peak_human:829.41K  # Redis 内存消耗的峰值
+- used_memory_lua_human:37.00K # lua 脚本引擎占用的内存大小
+- 如果单个 Redis 内存占用过大，并且在业务上没有太多压缩的空间的话，可以考虑集群化了。
+##### 复制积压缓冲区多大？
+- >redis-cli info replication |grep backlog
+-  repl_backlog_active:0
+-  repl_backlog_size:1048576  # 这个就是积压缓冲区大小
+-  repl_backlog_first_byte_offset:0
+-  repl_backlog_histlen:0
+复制积压缓冲区大小非常重要，它严重影响到主从复制的效率。
+从库可以通过积压缓冲区恢复中断的主从同步过程。
+积压缓冲区是环形的，后来的指令会覆盖掉前面的内容。
+如果有多个从库复制，积压缓冲区是共享的，它不会因为从库过多而线性增长。
+如果实例的修改指令请求很频繁，那就把积压缓冲区调大一些，几十个 M 大小差不多了，如果很闲，那就设置为几个 M。
+
+- slowlog get 可以查看慢操作；
+- 定位大key可以使用redis-cli --bigkeys 或者使用rdb工具分析rdb文件；
+- 看热key只能临时打开下monitor吧
+##### redis的缓存命中率?
+- 读取一个键之后(读操作和写操作都要对键进行读取)，服务器会根据键是否存在来更新服务器的键空间命中(hit)次数或键空间不命中(miss)次数，
+- 这两个值可以在INFO status 命令的keyspace_hits属性和keyspace_misses属性中查看。
 
 
+### 分布式锁
+- Sentinel集群模式实现分布式锁的问题？
+  - 比如在 Sentinel 集群中，主节点挂掉时，从节点会取而代之，客户端上却并没有明显感知。
+  - 原先第一个客户端在主节点中申请成功了一把锁，但是这把锁还没有来得及同步到从节点，主节点突然挂掉了。
+  - 然后从节点变成了主节点，这个新的节点内部没有这个锁，所以当另一个客户端过来请求加锁时，立即就批准了。
+  - 这样就会导致系统中同样一把锁被两个客户端同时持有，不安全性由此产生。
 
-
+- RedLock
+  - 为了解决这个问题，Antirez 发明了 Redlock 算法，它的流程比较复杂，不过已经有了很多开源的 library 做了良好的封装，用户可以拿来即用，比如 redlock-py。
+  - 如果你很在乎高可用性，希望挂了一台 redis 完全不受影响，那就应该考虑 redlock。
+  - 不过代价也是有的，需要更多的 redis 实例，性能也下降了，代码上还需要引入额外的library，运维上也需要特殊对待，这些都是需要考虑的成本，使用前请再三斟酌。
 
 
 
