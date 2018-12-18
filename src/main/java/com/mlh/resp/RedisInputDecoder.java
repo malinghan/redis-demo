@@ -1,9 +1,10 @@
-package com.mlh.demo;
+package com.mlh.resp;
 
 /**
  * @author: linghan.ma
  * @DATE: 2018/12/14
- * @description: 输入解码
+ * @description:
+ * 借助Netty实现Redis的RESP编码解码
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,25 @@ class InputState {
     public int index;
 }
 
+/**
+ * Redis输入解码
+ */
 public class RedisInputDecoder extends ReplayingDecoder<InputState> {
 
     private int length;
     private List<String> params;
 
+    /**
+     *
+     * @param ctx 用于处理Channel对应的事件
+     * @param in 输入
+     * @param out 输出
+     * @throws Exception
+     */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         InputState state = this.state();
+        //
         if (state == null) {
             length = readParamsLen(in);
             this.params = new ArrayList<>(length);
@@ -48,6 +60,11 @@ public class RedisInputDecoder extends ReplayingDecoder<InputState> {
     private final static int DOLLAR = '$';
     private final static int ASTERISK = '*';
 
+    /**
+     * 读取输入长度
+     * @param in
+     * @return
+     */
     private int readParamsLen(ByteBuf in) {
         int c = in.readByte();
         if (c != ASTERISK) {
@@ -83,6 +100,12 @@ public class RedisInputDecoder extends ReplayingDecoder<InputState> {
         return readLen(in, 6); // string maxlen 999999
     }
 
+    /**
+     * 按字节读取输入流
+     * @param in
+     * @param maxBytes
+     * @return
+     */
     private int readLen(ByteBuf in, int maxBytes) {
         byte[] digits = new byte[maxBytes]; // max 999个参数
         int len = 0;
@@ -105,6 +128,10 @@ public class RedisInputDecoder extends ReplayingDecoder<InputState> {
         return Integer.parseInt(new String(digits, 0, len));
     }
 
+    /**
+     * 过滤csrf
+     * @param in
+     */
     private void skipCrlf(ByteBuf in) {
         int c = in.readByte();
         if (c == CR) {
