@@ -326,12 +326,11 @@ requirepass yoursecurepasswordhereplease
 SCRIPT LOAD 和 EVALSHA 指令
 
 #### 参考资料
-
 - 1. 国内 90 后技术大神黄健宏的著作《Redis 设计与实现》
 - 2. Redis 官网 & Redis 作者 Antirez 的 Blog
-- Redis 官网: https://redis.io/
-- Antirez 博客: http://antirez.com/latest/0
-- Redis 扩展模块: https://redis.io/modules
+- 3. Redis 官网: https://redis.io/
+- 4. Antirez 博客: http://antirez.com/latest/0
+- 5. Redis 扩展模块: https://redis.io/modules
 
 
 
